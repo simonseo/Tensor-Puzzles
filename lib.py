@@ -70,6 +70,20 @@ def draw_example(data):
     )
     full = full.pad(1.2).center_xy()
     env = full.get_envelope()
+    # --- ADDED: WIDTH CAPPING LOGIC ---
+    MAX_WIDTH = 800  # Set your desired max width in pixels
+    scale_factor = 50 
+    
+    # Calculate desired width based on internal units
+    computed_width = env.width * scale_factor
+    
+    # If the image is too wide, shrink the scale factor to fit
+    if computed_width > MAX_WIDTH:
+        scale_factor = MAX_WIDTH / env.width
+
+    # Apply the calculated dimensions
+    chalk.set_svg_height(scale_factor * env.height)
+    # ----------------------------------
     set_svg_height(50 * env.height)
     height = 50 * env.height
     chalk.set_svg_height(300)
